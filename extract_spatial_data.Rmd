@@ -38,6 +38,33 @@ wgs_crs <- CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
 
 ```
 
+You will also need to [download a zip file]() that includes a region shapefile ("shapefile") and a raster describing sea surface temperature (sst_anoms_2012.tif).
+
+```{r setup,message=F,warning=F}
+
+file.copy("shapefile",
+"../../shares/web/data/htdocs/data/shapefile")
+
+file.copy("sst_anoms_2012.tif",
+"../../shares/web/data/htdocs/data/sst_anoms_2012.tif")
+
+
+## bundle and move region data to ftp site to make it easier to access
+setwd("../../shares/web/data/htdocs/data") # NOTE: have to set working directory because you can't have paths in zipfile
+zip(zipfile = "spatial_tutorial_data",
+                                      files = c("shapefile",
+                                                 "sst_anoms_2012.tif"))
+
+file.remove(c("sst_anoms_2012.tif"))
+unlink("shapefile/*")
+unlink("shapefile")
+
+setwd("../../../../../frazier/ftp_data")
+
+
+
+```
+
 # Regions
 
 Extracting raster data with shapefiles requires both the raster and shapefile to be in the same projection. Most of the global data provided is in the Mollweide projection. If your shapefile is in a different projection there are a couple options;

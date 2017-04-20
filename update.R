@@ -3,4 +3,4 @@
 
 rmarkdown::render('website.Rmd')
 
-file.copy("website.html", "../../shares/web/pressures/htdocs/index.html", overwrite=TRUE)
+file.copy("website.html", "../../shares/web/data/htdocs/index.html", overwrite=TRUE)

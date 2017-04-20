@@ -223,19 +223,30 @@ div.tocify {
 </div>
 
 
-<p>This site provides links to the following Ocean Health Index data:</p>
+<div id="what-is-available-here" class="section level2">
+<h2>What is available here</h2>
+<p>We provide links to some of the large (typically spatial data), intermediate files we use to obtain the data layers that are used to calculate Ocean Health Index scores. Specifically, you can find the following data at this site:</p>
 <ul>
-<li>Regions used in OHI global assessments</li>
-<li>Pressure raster data used in the 2016 OHI global assessment</li>
+<li>Spatial files describing the regions</li>
+<li>Raster files of the pressure data (scaled from 0-1) used in the 2016 OHI global assessment</li>
+<li>Some supplementary files used in our analyses</li>
 </ul>
-<p>Resources are available for viewing, analzying, and manipulating spatial data in R from our <a href="https://github.com/eco-data-science/">Github repository</a>, specifically:</p>
+<p>The raster data (pressures and some of the supplementary files) can be extracted at different spatial scales, which may be useful for regional OHI assessments or other types of analyses.</p>
+<p>A tutorial <a href="https://rawgit.com/OHI-Science/ftp_data/master/extract_spatial_data.html">is available</a> that describes how to extract and summarize raster data to different regions.</p>
+<p>Further resources are available for viewing, analzying, and manipulating spatial data in R from our <a href="https://github.com/eco-data-science/">Github repository</a>, specifically:</p>
 <ul>
 <li><a href="https://rawgit.com/eco-data-science/spatial-analysis-R/gh-pages/intro_spatial_data_R.html">raster data</a></li>
 <li><a href="https://rawgit.com/eco-data-science/spatial_analysis2_R/gh-pages/spatial_analysis2_dec2015.html">vector data</a></li>
 </ul>
+</div>
+<div id="where-to-find-other-data-of-potential-interest" class="section level2">
+<h2>Where to find other data of potential interest</h2>
+<p>The data layers we used to calculate the Ocean Health Index scores for the 220 regions are available from <a href="https://github.com/OHI-Science/ohi-global" class="uri">https://github.com/OHI-Science/ohi-global</a> (<a href="https://github.com/OHI-Science/ohi-global">data files are located in the layers folders located within each scenario (e.g., eez2016)</a>).</p>
+<p>In most cases, the intermediate files that we used to calculate the data layers are available from Github (<a href="https://github.com/OHI-Science/ohiprep" class="uri">https://github.com/OHI-Science/ohiprep</a>).</p>
+</div>
 <div id="ohi-regions" class="section level2">
 <h2>OHI regions</h2>
-<p><a href="https://mazu.nceas.ucsb.edu/pressures/data/regions.zip">Download the OHI global regions</a>!</p>
+<p><a href="https://ohi.nceas.ucsb.edu/data/data/regions.zip">Download the OHI global regions</a>!</p>
 <p>This folder includes shapefiles in both the <a href="https://en.wikipedia.org/wiki/Mollweide_projection">Mollweide</a> (regions_mol) and latitude/longitude (regions_gcs) coordinate reference system (Fig. 1). See this <a href="https://github.com/OHI-Science/ohi-science.github.io/raw/dev/assets/downloads/other/CRS.pdf">primer</a> for more information about coordinate reference systems. These files can be opened in mapping programs such as ArcGIS, GRASS GIS, and R. Table 1 includes information about the data fields included in the shapefiles.</p>
 <p><strong>Figure 1. OHI regions</strong></p>
 <p>For the Mollweide (A) and Latitude/Longitude (B) coordinate reference systems.</p>
@@ -297,7 +308,10 @@ div.tocify {
 <div id="ohi-pressure-data" class="section level2">
 <h2>OHI pressure data</h2>
 <p>Many of the OHI pressures are available at the raster scale, and these data can be downloaded from Table 2). To obtain the pressure score for each OHI region we average the raster cells within each region. The raster data can be extracted at different spatial scales, which may be useful for regional OHI assessments.</p>
-<p>Resolution: ~1km Coordinate reference system: Mollweide Coverage: Global Cell values: Scaled from 0 (low) - 1 (high-pressure)</p>
+<p><em>Resolution:</em> ~1km</p>
+<p><em>Coordinate reference system:</em> Mollweide</p>
+<p><em>Coverage:</em> Global</p>
+<p><em>Cell values:</em> Scaled from 0 (low) - 1 (high-pressure)</p>
 <p><strong>Table 2. OHI pressure raster data</strong></p>
 <p>Links to download the raster data for several OHI pressures. The “name” field links to a longer description of the data. The “description” field includes links to data preparation files (with R code). NOTE: these large files can take a while to download and require a lot of memory!</p>
 <table>
@@ -312,52 +326,52 @@ div.tocify {
 <tr class="odd">
 <td align="left"><a href="http://ohi-science.org/ohi-global/layers.html#po_chemicals">Chemical pollution</a></td>
 <td align="left">Modeled chemical pollution within EEZ from commercial shipping traffic, ports and harbors, land-based pesticide use (organic pollution), and urban runoff (inorganic pollution) (<a href="https://github.com/OHI-Science/ohiprep/tree/master/globalprep/prs_chem/v2016">data prep</a>)</td>
-<td align="left"><a href="https://mazu.nceas.ucsb.edu/pressures/data/chem_pollution.zip">5 years: 2009-2013, 2.3GB</a></td>
+<td align="left"><a href="https://ohi.nceas.ucsb.edu/data/data/chem_pollution.zip">5 years: 2009-2013, 2.3GB</a></td>
 </tr>
 <tr class="even">
 <td align="left"><a href="http://ohi-science.org/ohi-global/layers.html#fp_com_hb">High bycatch due to commercial fishing</a></td>
 <td align="left">Modeled destructive commercial fishing practices by 5 gear types and scaled by Net Primary Productivity (<a href="https://cdn.rawgit.com/OHI-Science/ohiprep/master/globalprep/prs_fish/v2016/fishing_pressure_layers.html">data prep</a>, <a href="https://cdn.rawgit.com/OHI-Science/ohiprep/master/globalprep/prs_fish/v2016/prim_productivity/npp.html">data prep 2</a>)</td>
-<td align="left"><a href="https://mazu.nceas.ucsb.edu/pressures/data/art_lb.zip">4 time periods: 2003-2007 to 2006-2010, 2.6GB</a></td>
+<td align="left"><a href="https://ohi.nceas.ucsb.edu/data/data/art_lb.zip">4 time periods: 2003-2007 to 2006-2010, 2.6GB</a></td>
 </tr>
 <tr class="odd">
 <td align="left"><a href="http://ohi-science.org/ohi-global/layers.html#fp_art_lb">Low bycatch due to artisanal fishing</a></td>
 <td align="left">Extent of artisanal fishing (including: artisanal, subsistence, and recreational catch) (<a href="https://cdn.rawgit.com/OHI-Science/ohiprep/master/globalprep/prs_fish/v2016/artisanal_fishing_layer.html">data prep</a>, <a href="https://cdn.rawgit.com/OHI-Science/ohiprep/master/globalprep/prs_fish/v2016/prim_productivity/npp.html">data prep 2</a>)</td>
-<td align="left"><a href="https://mazu.nceas.ucsb.edu/pressures/data/art_lb.zip">4 time periods: 2003-2007 to 2006-2010, 1.5GB</a></td>
+<td align="left"><a href="https://ohi.nceas.ucsb.edu/data/data/art_lb.zip">4 time periods: 2003-2007 to 2006-2010, 1.5GB</a></td>
 </tr>
 <tr class="even">
 <td align="left"><a href="http://ohi-science.org/ohi-global/layers.html#fp_com_lb">Low bycatch due to commercial fishing</a></td>
 <td align="left">Modeled destructive commercial fishing practices by 2 gear types and scaled by Net Primary Productivity (<a href="https://cdn.rawgit.com/OHI-Science/ohiprep/master/globalprep/prs_fish/v2016/fishing_pressure_layers.html">data prep</a>, <a href="https://cdn.rawgit.com/OHI-Science/ohiprep/master/globalprep/prs_fish/v2016/prim_productivity/npp.html">data prep 2</a>)</td>
-<td align="left"><a href="https://mazu.nceas.ucsb.edu/pressures/data/art_lb.zip">4 time periods: 2003-2007 to 2006-2010, 2.7GB</a></td>
+<td align="left"><a href="https://ohi.nceas.ucsb.edu/data/data/art_lb.zip">4 time periods: 2003-2007 to 2006-2010, 2.7GB</a></td>
 </tr>
 <tr class="odd">
 <td align="left"><a href="http://ohi-science.org/ohi-global/layers.html#po_trash">Marine plastics</a></td>
 <td align="left">Global marine plastic pollution (<a href="https://github.com/OHI-Science/ohiprep/tree/master/globalprep/cw_pressure_trash/v2015">data prep</a>)</td>
-<td align="left"><a href="https://mazu.nceas.ucsb.edu/pressures/data/trash_weight_rescale.tif">1 year: 2015, 1.2GB</a></td>
+<td align="left"><a href="https://ohi.nceas.ucsb.edu/data/data/trash_weight_rescale.tif">1 year: 2015, 1.2GB</a></td>
 </tr>
 <tr class="even">
 <td align="left"><a href="http://ohi-science.org/ohi-global/layers.html#po_nutrients">Nutrient pollution</a></td>
 <td align="left">Modeled nutrient pollution within 3nm of coastline based on fertilizer consumption (<a href="https://github.com/OHI-Science/ohiprep/tree/master/globalprep/prs_land-based_nutrient/v2016">data prep</a>)</td>
-<td align="left"><a href="https://mazu.nceas.ucsb.edu/pressures/data/nutrient_pollution.zip">5 years: 2009-2013, 566MB</a></td>
+<td align="left"><a href="https://ohi.nceas.ucsb.edu/data/data/nutrient_pollution.zip">5 years: 2009-2013, 566MB</a></td>
 </tr>
 <tr class="odd">
 <td align="left"><a href="http://ohi-science.org/ohi-global/layers.html#cc_acid">Ocean acidification</a></td>
 <td align="left">Ocean acidification pressure scaled using biological thresholds (<a href="https://cdn.rawgit.com/OHI-Science/ohiprep/master/globalprep/prs_oa/v2016/oa_dataprep.html">data prep</a>)</td>
-<td align="left"><a href="https://mazu.nceas.ucsb.edu/pressures/data/acid.zip">5 years: 2011-2015, 1.7GB</a></td>
+<td align="left"><a href="https://ohi.nceas.ucsb.edu/data/data/acid.zip">5 years: 2011-2015, 1.7GB</a></td>
 </tr>
 <tr class="even">
 <td align="left"><a href="http://ohi-science.org/ohi-global/layers.html#cc_slr">Sea level rise</a></td>
 <td align="left">Sea level rise pressure (<a href="https://cdn.rawgit.com/OHI-Science/ohiprep/master/globalprep/prs_slr/v2016/slr_layer_prep.html">data prep</a>)</td>
-<td align="left"><a href="https://mazu.nceas.ucsb.edu/pressures/data/slr.zip">5 years: 2011-2015, 99MB</a></td>
+<td align="left"><a href="https://ohi.nceas.ucsb.edu/data/data/slr.zip">5 years: 2011-2015, 99MB</a></td>
 </tr>
 <tr class="odd">
 <td align="left"><a href="http://ohi-science.org/ohi-global/layers.html#cc_sst">Sea surface temperature</a></td>
 <td align="left">Sea surface temperature anomalies (<a href="https://cdn.rawgit.com/OHI-Science/ohiprep/master/globalprep/prs_sst/v2016/sst_layer_prep.html">data prep</a>)</td>
-<td align="left"><a href="https://mazu.nceas.ucsb.edu/pressures/data/sst.zip">5 time periods: 2004-2008 to 2008-2012, 9.3GB</a></td>
+<td align="left"><a href="https://ohi.nceas.ucsb.edu/data/data/sst.zip">5 time periods: 2004-2008 to 2008-2012, 9.3GB</a></td>
 </tr>
 <tr class="even">
 <td align="left"><a href="http://ohi-science.org/ohi-global/layers.html#cc_uv">UV radiation</a></td>
 <td align="left">Modeled UV radiation (<a href="https://cdn.rawgit.com/OHI-Science/ohiprep/master/globalprep/prs_uv/v2016/uv_dataprep.html">data prep</a>)</td>
-<td align="left"><a href="https://mazu.nceas.ucsb.edu/pressures/data/uv.zip">5 time periods: 2007-2011 to 2011-2015, 1.5GB</a></td>
+<td align="left"><a href="https://ohi.nceas.ucsb.edu/data/data/uv.zip">5 time periods: 2007-2011 to 2011-2015, 1.5GB</a></td>
 </tr>
 </tbody>
 </table>
