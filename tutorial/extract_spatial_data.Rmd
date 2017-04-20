@@ -38,18 +38,19 @@ wgs_crs <- CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
 
 ```
 
-You will also need to [download a zip file]() that includes a region shapefile ("shapefile") and a raster describing sea surface temperature (sst_anoms_2012.tif).
+You will also need to [download a zip file](https://ohi.nceas.ucsb.edu/data/data/spatial_tutorial_data.zip) that includes a region shapefile ("shapefile/ohine_rgn") and a raster describing sea surface temperature (sst_anoms_2012.tif).
 
 ```{r setup,message=F,warning=F}
 
-file.copy("shapefile",
-"../../shares/web/data/htdocs/data/shapefile")
+# copy tutorial data to ftp site
+regions <- readOGR(dsn= "tutorial/shapefile", layer="ohine_rgn")
+writeOGR(regions, "../../shares/web/data/htdocs/data/shapefile", "ohine_rgns", driver="ESRI Shapefile")
 
-file.copy("sst_anoms_2012.tif",
+file.copy("tutorial/sst_anoms_2012.tif",
 "../../shares/web/data/htdocs/data/sst_anoms_2012.tif")
 
 
-## bundle and move region data to ftp site to make it easier to access
+## bundle into zip
 setwd("../../shares/web/data/htdocs/data") # NOTE: have to set working directory because you can't have paths in zipfile
 zip(zipfile = "spatial_tutorial_data",
                                       files = c("shapefile",
@@ -57,7 +58,7 @@ zip(zipfile = "spatial_tutorial_data",
 
 file.remove(c("sst_anoms_2012.tif"))
 unlink("shapefile/*")
-unlink("shapefile")
+unlink("shapefile", recursive=TRUE)
 
 setwd("../../../../../frazier/ftp_data")
 

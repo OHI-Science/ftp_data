@@ -15,28 +15,21 @@ pdf_document:
   toc: true
 ---
 
-## What is available here
-We provide links to some of the large (typically spatial data), intermediate files we use to obtain the data layers that are used to calculate Ocean Health Index scores.  Specifically, you can find the following data at this site:
+We provide most Ocean Health Index (OHI) data through Github, but some files are just too large.  These larger files are available from this location.  Specifically, the following data are available here:
 
-* Spatial files describing the regions
+* Spatial files describing the OHI regions
 * Raster files of the pressure data (scaled from 0-1) used in the 2016 OHI global assessment
 * Some supplementary files used in our analyses 
 
-The raster data (pressures and some of the supplementary files) can be extracted at different spatial scales, which may be useful for regional OHI assessments or other types of analyses. 
+The raster files may be particularly useful for researchers conducting regional OHI assessments (or, other analyses) that require summarizing the data for different regions than we used.   
 
-A tutorial [is available](https://rawgit.com/OHI-Science/ftp_data/master/extract_spatial_data.html) that describes how to extract and summarize raster data to different regions.
+A tutorial [is available](https://rawgit.com/OHI-Science/ftp_data/master/tutorial/extract_spatial_data.html) that describes how to extract and summarize raster data for regions.
 
 Further resources are available for viewing, analzying, and manipulating spatial data in R from our [Github repository](https://github.com/eco-data-science/), specifically:
 
 * [raster data](https://rawgit.com/eco-data-science/spatial-analysis-R/gh-pages/intro_spatial_data_R.html)
 * [vector data](https://rawgit.com/eco-data-science/spatial_analysis2_R/gh-pages/spatial_analysis2_dec2015.html)
 
-
-## Where to find other data of potential interest
-
-The data layers we used to calculate the Ocean Health Index scores for the 220 regions are available from https://github.com/OHI-Science/ohi-global ([data files are located in the layers folders located within each scenario (e.g., eez2016)](https://github.com/OHI-Science/ohi-global)). 
-
-In most cases, the intermediate files that we used to calculate the data layers are available from Github (https://github.com/OHI-Science/ohiprep). 
 
 
 ```{r setup, include=FALSE}
@@ -54,7 +47,7 @@ library(knitr)
 
 [Download the OHI global regions](https://ohi.nceas.ucsb.edu/data/data/regions.zip)!
 
-This folder includes shapefiles in both the [Mollweide](https://en.wikipedia.org/wiki/Mollweide_projection) (regions_mol) and latitude/longitude (regions_gcs) coordinate reference system (Fig. 1). See this [primer](https://github.com/OHI-Science/ohi-science.github.io/raw/dev/assets/downloads/other/CRS.pdf) for more information about coordinate reference systems. These files can be opened in mapping programs such as ArcGIS, GRASS GIS, and R.  Table 1 includes information about the data fields included in the shapefiles.
+This folder includes shapefiles in both the [Mollweide](https://en.wikipedia.org/wiki/Mollweide_projection) (regions_mol) and WGS 84 (regions_gcs) coordinate reference system (Fig. 1). See this [primer](https://github.com/OHI-Science/ohi-science.github.io/raw/dev/assets/downloads/other/CRS.pdf) for more information about coordinate reference systems. These files can be opened in mapping programs such as ArcGIS, GRASS GIS, and R.  Table 1 includes information about the data fields included in the shapefiles.
 
 ```{r move regions, eval=FALSE, echo=FALSE}
 
@@ -149,7 +142,7 @@ setwd("../../../../../frazier/ftp_data")
 
 **Figure 1. OHI regions**
 
-For the Mollweide (A) and Latitude/Longitude (B) coordinate reference systems.
+For the Mollweide (A) and WGS 84 (B) coordinate reference systems.
 
 ```{r region figs, echo=FALSE, fig.width=10, fig.height=4}
 
@@ -179,10 +172,22 @@ rgn_nam      | e.g., Antarctica, Peru    | Name of region
 rgn_key      | e.g., ATA, UMI            | Short identifying code for region
 are_km2      | numeric (<1, 30604795)   | Area of region in km^2^
 
+### Additional OHI region data
+
+#[Download additiona OHI region files]()#
+This zipfile contains several spatial files that we use for global OHI assessments:
+
+Filename   | Format   | Description
+---------- | -------- | ----------------
+sp_mol_raster_1km.tif | tif raster | ~ 1km resolution raster of OHI regions (generated using the Mollweide spatial file provided above)
+regionData.csv | csv | links the cell ids in the sp_mol_raster_1km.tif to other region data
+ocean.tif | tif raster | ocean mask used to prepare pressure files
+ice_mask_resampled.tif | tif raster | mask used to exclude ice areas for some pressures
+regions_offshore3nm_mol | shapefile | 3nm offshore area for OHI regions
 
 
 ## OHI pressure data
-Many of the OHI pressures are available at the raster scale, and these data can be downloaded from Table 2).  To obtain the pressure score for each OHI region we average the raster cells within each region.  The raster data can be extracted at different spatial scales, which may be useful for regional OHI assessments.  
+Some of the processed OHI pressure data are available at the raster scale, which can be downloaded from Table 2.  To obtain the pressure score for each OHI region we average the raster cells within each region.  The raster data can be extracted at different spatial scales, which may be useful for regional OHI assessments.  
 
 *Resolution:* ~1km 
 
@@ -363,7 +368,7 @@ setwd("../../../../../frazier/ftp_data")
 
 **Table 2. OHI pressure raster data**
 
-Links to download the raster data for several OHI pressures.  The "name" field links to a longer description of the data. The "description" field includes links to data preparation files (with R code).  NOTE: these large files can take a while to download and require a lot of memory!    
+Links to download processed raster data for several OHI pressures.  Explore the links included in the table to learn more about the original data sources and how the data were prepared.  The "name" field links to a longer description of the data. The "description" field includes links to data preparation files (with R code).  NOTE: these large files can take a while to download and require a lot of memory!    
 
 ```{r pressure datatable, echo=FALSE, warning=FALSE}
 
@@ -411,5 +416,62 @@ kable(p_data)
 
 ```
 
+
+## Mangrove data
+
+#[Download our modified mangrove data](https://ohi.nceas.ucsb.edu/data/data/mangrove_2012_mw_km2.tif)#
+
+This is a slightly modified version of the ["MFW, Mangrove Forest Cover Loss since 2000 in areas with year 2000 Mangrove Forest"](http://faculty.salisbury.edu/~sehamilton/mangroves/index.html) dataset from:
+
+Hamilton, S. E., & Casey, D. (2016). Creation of a high spatio-temporal resolution global database of continuous mangrove forest cover for the 21st century (CGMFC-21). Global Ecology and Biogeography, 25(6), 729-738. doi:10.1111/geb.1244.
+
+Because the 30m resolution raster the data is provided as (although awesome!) can be difficult to work with, we created a ~500m resolution raster and converted to a Mollweide coordinate reference system.  The units are km^2^ mangrove per cell, consequently, summing the raster cells in a region will provide the km^2^ area of mangrove forest (cell values range from 0 to 0.274979).  
+
+The scripts we used to estimate mangrove extent and trend are available from [github](https://github.com/OHI-Science/ohiprep/tree/master/globalprep/hab_mangrove/v2015).
+
+These data could be useful for estimating mangrove cover in regions without local mangrove surveys.  
+
+```{r mangroves, echo=FALSE, warning=FALSE, eval=FALSE}
+
+file.copy(file.path(dir_M, "git-annex/globalprep/Mangrove/v2015/tmp/mangrove_2012_mw/mangrove_2012_mw_km2.tif"),
+          "../../shares/web/data/htdocs/data/mangrove_2012_mw_km2.tif")
+
+```
+
+## Net Primary Productivity data
+
+#[Download our modified NPP data](https://ohi.nceas.ucsb.edu/data/data/npp.zip)#
+
+We use Net Primary Productivity data to scale the fishing pressures data for the OHI global assessment.  
+
+This is a slightly modified version of the [data](http://www.science.oregonstate.edu/ocean.productivity/standard.product.php) provided by:
+
+Behrenfeld, M.J. and Falkowski, P.G., 1997. Photosynthetic rates derived from satellite‐based chlorophyll concentration. Limnology and oceanography, 42(1), pp.1-20.
+
+As described [here](https://cdn.rawgit.com/OHI-Science/ohiprep/master/globalprep/prs_fish/v2016/prim_productivity/npp.html), we convert these data to a tif raster in the Mollweide coordinate reference system and average the monthly data to estimate mean annual NPP. Units are mg C/m2/data.  Data are available from 2003 to 2015.
+
+These data could be useful for estimating fishing pressures at different spatial scales.  
+
+```{r npp, echo=FALSE, warning=FALSE, eval=FALSE}
+
+library(stringr)
+
+npp_files <- list.files(file.path(dir_M, 'git-annex/globalprep/prs_fish/v2016/VGPM_primary_productivity/int/annual_npp'), pattern = 'annual_mean_npp_2', full.names = T)
+years <- str_sub(npp_files, start=-8, end=-5) 
+
+for(npp in npp_files){ #npp=npp_files[1]
+
+year <-  str_sub(npp, start=-8, end=-5) 
+  
+file.copy(npp,
+          sprintf("../../shares/web/data/htdocs/data/annual_mean_npp_%s.tif", year))
+  }
+
+setwd("../../shares/web/data/htdocs/data") 
+zip(zipfile = "npp", files = c(paste0("annual_mean_npp_", years, ".tif")))
+file.remove(paste0("annual_mean_npp_", years, ".tif"))
+setwd("../../../../../frazier/ftp_data")
+
+```
 
 
