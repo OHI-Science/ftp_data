@@ -23,9 +23,7 @@ We provide most Ocean Health Index (OHI) data through Github, but some files are
 
 The raster files may be particularly useful for researchers conducting regional OHI assessments (or, other analyses) that require summarizing the data for different regions than we used.   
 
-A tutorial [is available](https://rawgit.com/OHI-Science/ftp_data/master/tutorial/extract_spatial_data.html) that describes how to extract and summarize raster data for regions.
-
-Further resources are available for viewing, analzying, and manipulating spatial data in R from our [Github repository](https://github.com/eco-data-science/), specifically:
+Resources are available for viewing, analzying, and manipulating spatial data in R from our [Github repository](https://github.com/eco-data-science/), specifically:
 
 * [raster data](https://rawgit.com/eco-data-science/spatial-analysis-R/gh-pages/intro_spatial_data_R.html)
 * [vector data](https://rawgit.com/eco-data-science/spatial_analysis2_R/gh-pages/spatial_analysis2_dec2015.html)
@@ -45,9 +43,9 @@ library(knitr)
 
 ## OHI regions
 
-[Download the OHI global regions](https://ohi.nceas.ucsb.edu/data/data/regions.zip)!
+###[Download the OHI global regions](https://ohi.nceas.ucsb.edu/data/data/regions.zip)!
 
-This folder includes shapefiles in both the [Mollweide](https://en.wikipedia.org/wiki/Mollweide_projection) (regions_mol) and WGS 84 (regions_gcs) coordinate reference system (Fig. 1). See this [primer](https://github.com/OHI-Science/ohi-science.github.io/raw/dev/assets/downloads/other/CRS.pdf) for more information about coordinate reference systems. These files can be opened in mapping programs such as ArcGIS, GRASS GIS, and R.  Table 1 includes information about the data fields included in the shapefiles.
+This folder includes shapefiles in both the [Mollweide](https://en.wikipedia.org/wiki/Mollweide_projection) (regions_mol) and WGS 84 (regions_gcs) coordinate reference systems (Fig. 1). See this [primer](https://github.com/OHI-Science/ohi-science.github.io/raw/dev/assets/downloads/other/CRS.pdf) for more information about coordinate reference systems. These files can be opened in mapping programs such as ArcGIS, GRASS GIS, and R.  Table 1 includes information about the data fields included in these shapefiles.
 
 ```{r move regions, eval=FALSE, echo=FALSE}
 
@@ -146,14 +144,14 @@ For the Mollweide (A) and WGS 84 (B) coordinate reference systems.
 
 ```{r region figs, echo=FALSE, fig.width=10, fig.height=4}
 
-mol <- rasterGrob(readPNG("figures/global_map_Index_2016_mol.png"), interpolate=TRUE, y=.7)
+mol <- rasterGrob(readPNG("figures/global_map_Index_2016_mol.png"), interpolate=TRUE)
 mol_txt <- textGrob("A", gp=gpar(fontsize=12), just="left", x=0.15, y=0)
 
-gcs <- rasterGrob(readPNG("figures/regions_gcs.png"), interpolate=TRUE, y=.7)
+gcs <- rasterGrob(readPNG("figures/regions_gcs.png"), interpolate=TRUE)
 gcs_txt <- textGrob("B", gp=gpar(fontsize=12), just="left", x=0.15, y=0)
 # c <- textGrob("c", gp=gpar(fontsize=12), just="left", x=0.15, y=0)
 # d <- textGrob("d", gp=gpar(fontsize=12), just="left", x=0.15, y=0)
-grid.arrange(mol_txt, gcs_txt, mol, gcs, nrow=2, ncol=2, heights=c(.2, 4))
+grid.arrange(mol_txt, gcs_txt, mol, gcs, nrow=2, ncol=2, heights=c(.4, 4))
 
 ```
 
@@ -174,7 +172,8 @@ are_km2      | numeric (<1, 30604795)   | Area of region in km^2^
 
 ### Additional OHI region data
 
-#[Download additiona OHI region files]()#
+**[Download additional OHI region files](https://ohi.nceas.ucsb.edu/data/data/spatial_ohi_supplement.zip)**
+
 This zipfile contains several spatial files that we use for global OHI assessments:
 
 Filename   | Format   | Description
@@ -188,6 +187,8 @@ regions_offshore3nm_mol | shapefile | 3nm offshore area for OHI regions
 
 ## OHI pressure data
 Some of the processed OHI pressure data are available at the raster scale, which can be downloaded from Table 2.  To obtain the pressure score for each OHI region we average the raster cells within each region.  The raster data can be extracted at different spatial scales, which may be useful for regional OHI assessments.  
+
+**An [example R script](https://rawgit.com/OHI-Science/ftp_data/master/tutorial/extract_spatial_data.html) describes how to extract and summarize raster data for regions.**
 
 *Resolution:* ~1km 
 
@@ -419,7 +420,7 @@ kable(p_data)
 
 ## Mangrove data
 
-#[Download our modified mangrove data](https://ohi.nceas.ucsb.edu/data/data/mangrove_2012_mw_km2.tif)#
+###[Download our modified mangrove data](https://ohi.nceas.ucsb.edu/data/data/mangrove_2012_mw_km2.tif)
 
 This is a slightly modified version of the ["MFW, Mangrove Forest Cover Loss since 2000 in areas with year 2000 Mangrove Forest"](http://faculty.salisbury.edu/~sehamilton/mangroves/index.html) dataset from:
 
@@ -440,7 +441,7 @@ file.copy(file.path(dir_M, "git-annex/globalprep/Mangrove/v2015/tmp/mangrove_201
 
 ## Net Primary Productivity data
 
-#[Download our modified NPP data](https://ohi.nceas.ucsb.edu/data/data/npp.zip)#
+###[Download our modified NPP data](https://ohi.nceas.ucsb.edu/data/data/npp.zip)
 
 We use Net Primary Productivity data to scale the fishing pressures data for the OHI global assessment.  
 
