@@ -117,7 +117,7 @@ plot(rgn_moll,add=T)
 
 ```
 
-#Crop global data to your region
+# Crop global data to your region
 
 Using the raster package `crop` function, you can crop the data to your region. This isn't necessary since you can extract values directly from the global data, but it does help to visualize the data in your region if you crop the raster first.
 
