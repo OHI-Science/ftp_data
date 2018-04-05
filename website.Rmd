@@ -1,5 +1,5 @@
 ---
-title: 'Ocean Health Index data'
+title: 'Ocean Health Index 2017 data'
 output: 
   html_document:
     code_folding: show
@@ -21,9 +21,9 @@ We provide most Ocean Health Index (OHI) data through Github, but some files are
 * Raster files of the pressure data (scaled from 0-1) used in the 2016 OHI global assessment
 * Some supplementary files used in our analyses 
 
-The raster files may be particularly useful for researchers conducting regional OHI assessments (or, other analyses) that require summarizing the data for different regions than we used.   
+The raster files may be particularly useful for researchers conducting regional OHI assessments (or, other analyses) that require summarizing the data for regions.   
 
-Resources are available for viewing, analzying, and manipulating spatial data in R from our [Github repository](https://github.com/eco-data-science/), specifically:
+Resources are available for viewing, analyzing, and manipulating spatial data in R from our [Github repository](https://github.com/eco-data-science/), specifically:
 
 * [raster data](https://rawgit.com/eco-data-science/spatial-analysis-R/gh-pages/intro_spatial_data_R.html)
 * [vector data](https://rawgit.com/eco-data-science/spatial_analysis2_R/gh-pages/spatial_analysis2_dec2015.html)
