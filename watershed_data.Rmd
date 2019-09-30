@@ -1,0 +1,46 @@
+---
+title: "pourpoints and watershed data"
+output: html_document
+---
+
+
+Request on Sep 8 2019 for watershed and pourpoint data used to estimate nutrient and chemical pollution for Cumulative Human Impacts project. 
+```{r setup, include=FALSE}
+library(dplyr)
+library(tidyr)
+library(grid)
+library(gridExtra)
+library(png)
+library(DT)
+library(knitr)
+library(raster)
+library(rgdal)
+library(RColorBrewer)
+
+dir_M             <- c('Windows' = '//mazu.nceas.ucsb.edu/ohi',
+                       'Darwin'  = '/Volumes/ohi',    ### connect (cmd-K) to smb://mazu/ohi
+                       'Linux'   = '/home/shares/ohi')[[ Sys.info()[['sysname']] ]]
+```
+
+## Data
+These data were identified by Jared as the data to use.
+
+```{r}
+
+/home/shares/ohi/git-annex/land-based/wastewater/basins_laea`, and the pour points were in `/home/shares/ohi/git-annex/land-based/wastewater/pour_points/global_plume_2007_2010.shp
+
+current_folder <- "/home/shares/ohi/git-annex/land-based/wastewater/basins_laea"
+setwd(current_folder)
+new_folder <- "/home/shares/web/data/htdocs/data/watershed_pourpoints_CHI/watersheds.zip"
+list_of_files <- list.files() 
+zip(zipfile = new_folder, files = list_of_files)
+
+
+current_folder <- "/home/shares/ohi/git-annex/land-based/wastewater/pour_points"
+setwd(current_folder)
+new_folder <- "/home/shares/web/data/htdocs/data/watershed_pourpoints_CHI/pourpoints.zip"
+list_of_files <- list.files() 
+zip(zipfile = new_folder, files = list_of_files)
+
+
+```
