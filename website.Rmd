@@ -1,5 +1,5 @@
 ---
-title: 'Ocean Health Index 2017 data'
+title: 'Ocean Health Index Supplementary Data'
 output: 
   html_document:
     code_folding: show
@@ -18,7 +18,6 @@ pdf_document:
 We provide most Ocean Health Index (OHI) data through Github, but some files are just too large.  These larger files are available from this location.  Specifically, the following data are available here:
 
 * Spatial files describing the OHI regions
-* Raster files of the pressure data (scaled from 0-1) used in the 2016 OHI global assessment
 * Some supplementary files used in our analyses 
 
 The raster files may be particularly useful for researchers conducting regional OHI assessments (or, other analyses) that require summarizing the data for regions.   
@@ -43,7 +42,7 @@ library(knitr)
 
 ## OHI regions
 
-###[Download the OHI global regions](https://ohi.nceas.ucsb.edu/data/data/regions.zip)!
+### [Download the OHI global regions](https://ohi.nceas.ucsb.edu/data/data/regions.zip)!
 
 This folder includes shapefiles in both the [Mollweide](https://en.wikipedia.org/wiki/Mollweide_projection) (regions_mol) and WGS 84 (regions_gcs) coordinate reference systems (Fig. 1). See this [primer](https://github.com/OHI-Science/ohi-science.github.io/raw/dev/assets/downloads/other/CRS.pdf) for more information about coordinate reference systems. These files can be opened in mapping programs such as ArcGIS, GRASS GIS, and R.  Table 1 includes information about the data fields included in these shapefiles.
 
@@ -185,242 +184,9 @@ ice_mask_resampled.tif | tif raster | mask used to exclude ice areas for some pr
 regions_offshore3nm_mol | shapefile | 3nm offshore area for OHI regions
 
 
-## OHI pressure data
-Some of the processed OHI pressure data are available at the raster scale, which can be downloaded from Table 2.  To obtain the pressure score for each OHI region we average the raster cells within each region.  The raster data can be extracted at different spatial scales, which may be useful for regional OHI assessments.  
-
-**An [example R script](https://rawgit.com/OHI-Science/ftp_data/master/tutorial/extract_spatial_data.html) describes how to extract and summarize raster data for regions.**
-
-*Resolution:* ~1km 
-
-*Coordinate reference system:* Mollweide 
-
-*Coverage:* Global
-
-*Cell values:* Scaled from 0 (low) - 1 (high-pressure)
-
-```{r pressure data, echo=FALSE, eval=FALSE}
-
-#################################
-## ocean acidification data
-#################################
-
-years <- 2011:2015
-
-for(year in years){ # year= 2011
-file.copy(file.path(dir_M, "git-annex/globalprep/prs_oa/v2016/output", paste0("oa_prs_layer_", year, ".tif")),
-          file.path("../../shares/web/data/htdocs/data", paste0("oa_prs_layer_", year, ".tif")))
-}
-
-
-setwd("../../shares/web/data/htdocs/data")
-zip(zipfile = "acid", files = c(paste0("oa_prs_layer_", years, ".tif")))
-file.remove(c(paste0("oa_prs_layer_", years, ".tif")))
-setwd("../../../../../frazier/ftp_data")
-
-############################
-## SST
-############################
-
-years <- c("2008-2012", "2007-2011", "2006-2010", "2005-2009", "2004-2008")
-
-for(year in years){ # year= 2011
-file.copy(file.path(dir_M, "git-annex/globalprep/prs_sst/v2016/output", paste0("sst_", year, "_1985-1989.tif")),
-          file.path("../../shares/web/data/htdocs/data", paste0("sst_", year, "_1985-1989.tif")))
-}
-
-setwd("../../shares/web/data/htdocs/data") 
-zip(zipfile = "sst", files = c(paste0("sst_", years, "_1985-1989.tif")))
-file.remove(c(paste0("sst_", years, "_1985-1989.tif")))
-setwd("../../../../../frazier/ftp_data")
-
-###############################
-## SLR
-###############################
-
-years <- c(2011:2015)
-
-for(year in years){ # year= 2011
-file.copy(file.path(dir_M, "git-annex/globalprep/prs_slr/v2016/output", paste0("slr_", year, ".tif")),
-          file.path("../../shares/web/data/htdocs/data", paste0("slr_", year, ".tif")))
-}
-
-setwd("../../shares/web/data/htdocs/data") 
-zip(zipfile = "slr", files = c(paste0("slr_", years, ".tif")))
-file.remove(c(paste0("slr_", years, ".tif")))
-setwd("../../../../../frazier/ftp_data")
-
-###############################
-## UV
-###############################
-
-years <- c("2007_2011", "2008_2012", "2009_2013", "2010_2014", "2011_2015")
-
-for(year in years){ # year= 2011
-file.copy(file.path(dir_M, "git-annex/globalprep/prs_uv/v2016/output", paste0("uv_", year, "-2005_2009.tif")),
-          file.path("../../shares/web/data/htdocs/data", paste0("uv_", year, "-2005_2009.tif")))
-}
-
-setwd("../../shares/web/data/htdocs/data") 
-zip(zipfile = "uv", files = c(paste0("uv_", years, "-2005_2009.tif")))
-file.remove(c(paste0("uv_", years, "-2005_2009.tif")))
-setwd("../../../../../frazier/ftp_data")
-
-###############################
-## Trash
-###############################
-
-file.copy(file.path(dir_M, "git-annex/globalprep/cw_pressure_trash/v2015/output/weight_rescale.tif"),
-          file.path("../../shares/web/data/htdocs/data/trash_weight_rescale.tif"))
-
-
-###############################
-## Artisanal fishing
-###############################
-
-years <- c("2003-2007", "2004-2008", "2005-2009", "2006-2010")
-
-for(year in years){ # year= 2011
-file.copy(file.path(dir_M, "git-annex/globalprep/prs_fish/v2016/out/artisanal", paste0("art_press_", year, ".tif")),
-          file.path("../../shares/web/data/htdocs/data", paste0("art_press_", year, ".tif")))
-}
-
-setwd("../../shares/web/data/htdocs/data") 
-zip(zipfile = "art_lb", files = c(paste0("art_press_", years, ".tif")))
-file.remove(c(paste0("art_press_", years, ".tif")))
-setwd("../../../../../frazier/ftp_data")
-
-###############################
-## Commercial fishing high bycatch
-###############################
-
-years <- c("2003-2007", "2004-2008", "2005-2009", "2006-2010")
-
-for(year in years){ # year= 2011
-file.copy(file.path(dir_M, "git-annex/globalprep/prs_fish/v2016/out/high_bycatch", paste0("hb_fish_pressure_", year, ".tif")),
-          file.path("../../shares/web/data/htdocs/data", paste0("hb_fish_pressure_", year, ".tif")))
-}
-
-setwd("../../shares/web/data/htdocs/data") 
-zip(zipfile = "comm_fis_hb", files = c(paste0("hb_fish_pressure_", years, ".tif")))
-file.remove(c(paste0("hb_fish_pressure_", years, ".tif")))
-setwd("../../../../../frazier/ftp_data")
-
-###############################
-## Commercial fishing low bycatch
-###############################
-
-years <- c("2003-2007", "2004-2008", "2005-2009", "2006-2010")
-
-for(year in years){ # year= 2011
-file.copy(file.path(dir_M, "git-annex/globalprep/prs_fish/v2016/out/low_bycatch", paste0("lb_fish_pressure_", year, ".tif")),
-          file.path("../../shares/web/data/htdocs/data", paste0("lb_fish_pressure_", year, ".tif")))
-}
-
-setwd("../../shares/web/data/htdocs/data") 
-zip(zipfile = "comm_fis_lb", files = c(paste0("lb_fish_pressure_", years, ".tif")))
-file.remove(c(paste0("lb_fish_pressure_", years, ".tif")))
-setwd("../../../../../frazier/ftp_data")
-
-###############################
-## Chemical pollution
-###############################
-
-years <- c(2009:2012)
-
-# this one is a loner
-file.copy(file.path(dir_M, "git-annex/globalprep/prs_chem/v2016/int/chemical_pollution_2013_scaled.tif"),
-          file.path("../../shares/web/data/htdocs/data/chemical_pollution_2013_scaled.tif"))
-
-for(year in years){ # year= 2011
-file.copy(file.path(dir_M, "marine_threats/impact_layers_2013_redo/impact_layers/work/land_based/before_2007/raw_global_results/Frazier", paste0("chemical_pollution_", year, "_scaled.tif")),
-          file.path("../../shares/web/data/htdocs/data", paste0("chemical_pollution_", year, "_scaled.tif")))
-}
-
-years <- 2009:2013
-setwd("../../shares/web/data/htdocs/data") 
-zip(zipfile = "chem_pollution", files = c(paste0("chemical_pollution_", years, "_scaled.tif")))
-file.remove(c(paste0("chemical_pollution_", years, "_scaled.tif")))
-setwd("../../../../../frazier/ftp_data")
-
-###############################
-## Nutrient pollution
-###############################
-
-years <- c(2009:2012)
-
-# this one is a loner
-file.copy(file.path(dir_M, "git-annex/globalprep/prs_land-based_nutrient/v2016/int/global_plumes_fert_2013_log_scaled_extend.tif"),
-          file.path("../../shares/web/data/htdocs/data/global_plumes_fert_2013_log_scaled_extend.tif"))
-
-for(year in years){ # year= 2011
-file.copy(file.path(dir_M, "marine_threats/impact_layers_2013_redo/impact_layers/work/land_based/before_2007/raw_global_results/Frazier", paste0("global_plumes_fert_", year, "_raw_log_extend_scaled.tif")),
-          file.path("../../shares/web/data/htdocs/data", 
-                    paste0("global_plumes_fert_", year, "_raw_log_extend_scaled.tif")))
-}
-
-setwd("../../shares/web/data/htdocs/data") 
-zip(zipfile = "nutrient_pollution", files = c("global_plumes_fert_2013_log_scaled_extend.tif", paste0("global_plumes_fert_", years, "_raw_log_extend_scaled.tif")))
-file.remove(paste0("global_plumes_fert_", years, "_raw_log_extend_scaled.tif"))
-file.remove("global_plumes_fert_2013_log_scaled_extend.tif")
-setwd("../../../../../frazier/ftp_data")
-
-
-```
-
-**Table 2. OHI pressure raster data**
-
-Links to download processed raster data for several OHI pressures.  Explore the links included in the table to learn more about the original data sources and how the data were prepared.  The "name" field links to a longer description of the data. The "description" field includes links to data preparation files (with R code).  NOTE: these large files can take a while to download and require a lot of memory!    
-
-```{r pressure datatable, echo=FALSE, warning=FALSE}
-
-link <- "http://ohi-science.org/ohi-global/layers.html#"
-
-pressures <- c("cc_acid", "cc_sst", "cc_slr", "cc_uv", "po_trash", "fp_art_lb",
-                      "fp_com_hb", "fp_com_lb", "po_chemicals", "po_nutrients")
-
-p_data <- read.csv("../ohi-global/eez_layers_meta_data/layers_eez_base.csv") %>%
-  filter(layer %in% pressures) %>%
-  mutate(p_link = paste0(link, layer)) %>%
-  mutate(name = paste0("[", name, "](", p_link, ")"))
-
-p_prep <- read.csv("../ohi-global/eez_layers_meta_data/layers_eez_methods.csv") %>%
-  filter(layer %in% pressures) %>%
-  filter(variable == "dataprep_url_2016") %>%
-  group_by(layer) %>%
-  mutate(number = 1) %>%
-  mutate(number = cumsum(number)) %>%
-  mutate(number = paste0("data prep ", number)) %>%
-  mutate(number = gsub(" 1", "", number)) %>%
-  mutate(method = paste0("[", number, "](", variable_data, ")")) %>%
-  summarize(method = paste(method, collapse = ", "))
-
-download_data <- data.frame(layer = c("cc_acid", "cc_sst", "cc_slr", "cc_uv", "po_trash", "fp_art_lb", 
-                                      "fp_com_hb", "fp_com_lb", "po_chemicals", "po_nutrients"),
-                            Download = c("[5 years: 2011-2015, 1.7GB](https://ohi.nceas.ucsb.edu/data/data/acid.zip)",
-                                         "[5 time periods: 2004-2008 to 2008-2012, 9.3GB](https://ohi.nceas.ucsb.edu/data/data/sst.zip)",
-                                         "[5 years: 2011-2015, 99MB](https://ohi.nceas.ucsb.edu/data/data/slr.zip)",
-                                         "[5 time periods: 2007-2011 to 2011-2015,  1.5GB](https://ohi.nceas.ucsb.edu/data/data/uv.zip)",
-                                         "[1 year: 2015, 1.2GB](https://ohi.nceas.ucsb.edu/data/data/trash_weight_rescale.tif)",
-                                         "[4 time periods: 2003-2007 to 2006-2010,  1.5GB](https://ohi.nceas.ucsb.edu/data/data/art_lb.zip)",
-                                         "[4 time periods: 2003-2007 to 2006-2010,  2.6GB](https://ohi.nceas.ucsb.edu/data/data/art_lb.zip)",
-                                         "[4 time periods: 2003-2007 to 2006-2010,  2.7GB](https://ohi.nceas.ucsb.edu/data/data/art_lb.zip)",
-                                         "[5 years: 2009-2013, 2.3GB](https://ohi.nceas.ucsb.edu/data/data/chem_pollution.zip)",
-                                         "[5 years: 2009-2013, 566MB](https://ohi.nceas.ucsb.edu/data/data/nutrient_pollution.zip)"))
-
-p_data <- p_data %>%
-  left_join(p_prep, by="layer") %>%
-  mutate(description = paste0(description, " (", method, ")")) %>%
-  left_join(download_data, by="layer") %>% 
-  dplyr::select(Name=name, Description=description, Download)
-
-kable(p_data)
-
-```
-
-
 ## Mangrove data
 
-###[Download our modified mangrove data](https://ohi.nceas.ucsb.edu/data/data/mangrove_2012_mw_km2.tif)
+### [Download our modified mangrove data](https://ohi.nceas.ucsb.edu/data/data/mangrove_2012_mw_km2.tif)
 
 This is a slightly modified version of the ["MFW, Mangrove Forest Cover Loss since 2000 in areas with year 2000 Mangrove Forest"](http://faculty.salisbury.edu/~sehamilton/mangroves/index.html) dataset from:
 
@@ -441,7 +207,7 @@ file.copy(file.path(dir_M, "git-annex/globalprep/Mangrove/v2015/tmp/mangrove_201
 
 ## Net Primary Productivity data
 
-###[Download our modified NPP data](https://ohi.nceas.ucsb.edu/data/data/npp.zip)
+### [Download our modified NPP data](https://ohi.nceas.ucsb.edu/data/data/npp.zip)
 
 We use Net Primary Productivity data to scale the fishing pressures data for the OHI global assessment.  
 
